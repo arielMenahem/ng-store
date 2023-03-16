@@ -1,0 +1,20 @@
+<div class="card" *ngIf="product">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <ng-content select=".header"> </ng-content>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{ product.title }}</mat-card-title>
+    </mat-card-header>
+    <img
+      mat-card-image
+      src="{{ product.image }}"
+      alt="{{ product.description }}"
+    />
+    <mat-card-footer>{{ product.category }} </mat-card-footer>
+    <mat-card-actions>
+      <p>{{ product.price }} NIS</p>
+      <button mat-button>Add To Cart</button>
+      <button mat-button>More Info.</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
