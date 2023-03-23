@@ -1,0 +1,38 @@
+<div class="login">
+  <form #loginForm="ngForm" (submit)="onSubmit(loginForm)">
+    <div class="login__field">
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          matInput
+          placeholder="Ex. pat@example.com"
+          ngModel
+        />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Passward</mat-label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          matInput
+          placeholder="Enter your password"
+          ngModel
+        />
+      </mat-form-field>
+      <mat-form-field class="demo-full-width" appearance="fill">
+        <mat-label>Choose one</mat-label>
+        <select matNativeControl ngModel name="role">
+          <option value="Admin" selected>Admin</option>
+          <option value="User">User</option>
+        </select>
+      </mat-form-field>
+      <div class="login__action">
+        <button mat-button type="submit">login</button>
+      </div>
+    </div>
+  </form>
+</div>

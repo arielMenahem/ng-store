@@ -6,10 +6,12 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductService } from 'src/app/product/services/product.service';
+import { ProductFormComponent } from 'src/app/shared/components/product-form/product-form.component';
 import { IProduct } from 'src/app/shared/models';
 
 @Component({
@@ -23,12 +25,17 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
 
-  constructor(private productsService: ProductService) {}
+  constructor(
+    private productsService: ProductService,
+    private dialog: MatDialog
+  ) {}
+
   ngOnInit(): void {
     this.productsService.getProducts$().subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
       this.paging();
     });
+    this.productsService.fetchProducts();
   }
   ngOnDestroy(): void {}
 
@@ -49,5 +56,15 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.sort) {
       this.dataSource.sort = this.sort;
     }
+  }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ProductFormComponent, {
+      width: '250px',
+      data: { name: 'John' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 }

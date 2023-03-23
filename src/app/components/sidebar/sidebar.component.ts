@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Routes, RouterModule, Router } from '@angular/router';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,10 +17,13 @@ export class SidebarComponent {
     this.onCloseSidebar.emit();
   }
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public dialog: MatDialog) {}
 
   goToRoute(routePath: string) {
     this.router.navigate([routePath]);
     this.closeSidebar();
+  }
+  openLogin() {
+    this.dialog.open(LoginComponent);
   }
 }
