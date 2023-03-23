@@ -11,6 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 const modules: Array<any> = [
   MatToolbarModule,
@@ -24,6 +26,8 @@ const modules: Array<any> = [
   MatPaginatorModule,
   MatSortModule,
   MatMenuModule,
+  MatDialogModule,
+  MatSelectModule,
 ];
 
 @NgModule({

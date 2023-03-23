@@ -5,9 +5,10 @@ import { SharedModule } from '../shared/shared.module';
 import { MatPaginator } from '@angular/material/paginator';
 import { PageEvent } from '@angular/material/paginator';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AdminComponent, EditProductComponent],
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule, SharedModule, RouterModule],
 })
 export class AdminModule {}

@@ -10,9 +10,17 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeModule } from './home/home.module';
 
 import { MaterialModule } from './material/material.module';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    SidebarComponent,
+    LoginComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -21,6 +29,8 @@ import { MaterialModule } from './material/material.module';
     HttpClientModule,
     HomeModule,
     AdminModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

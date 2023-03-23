@@ -51,7 +51,11 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button
+              mat-menu-item
+              [routerLink]="['/admin/edit', element.id]"
+              routerLinkActive="router-link-active"
+            >
               <mat-icon>edit</mat-icon>
               <!-- <span>Redial</span> -->
             </button>
@@ -70,6 +74,10 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+    <button mat-fab color="primary" aria-label="Add" (click)="openDialog()">
+      <mat-icon>+</mat-icon>
+    </button>
+
     <mat-paginator
       [length]="dataSource.data.length"
       [pageSize]="10"
