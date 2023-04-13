@@ -1,1 +1,9 @@
-<app-product-form> </app-product-form>
+<p></p>
+<div class="edit-product" *ngIf="product; else noProduct">
+  <app-product-form [product]="product" (submitEmmiter)="onSubmit($event)">
+  </app-product-form>
+</div>
+
+<ng-template #noProduct>
+  <h1>No Prod</h1>
+</ng-template>

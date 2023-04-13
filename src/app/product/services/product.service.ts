@@ -1,6 +1,7 @@
+import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { Routes } from 'src/app/core/http/api';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { IProduct } from 'src/app/shared/models';
@@ -14,30 +15,41 @@ export class ProductService {
     private http: HttpClient,
     private storageService: StorageService
   ) {}
-  private productsSubject$: Subject<IProduct[]> = new Subject();
+  private productsSubject$: BehaviorSubject<IProduct[]> = new BehaviorSubject(
+    []
+  );
 
   public getProducts$(): Observable<IProduct[]> {
-    // return this.http.get<IProduct[]>(Routes['allProducts']);
     this.fetchProducts();
     return this.productsSubject$.asObservable();
     // return of(PRODUCTS_MOCK);
   }
 
-  public getProductsById$(id: any): Observable<IProduct> {
-    return this.http.get<IProduct>(Routes['singleProduct'](id));
+  public getProductsById$(id: number): IProduct {
+    this.fetchProducts();
+    const productsList = this.productsSubject$.value;
+    const productsLIndex: number = productsList.findIndex(
+      (product) => product.id === Number(id)
+    );
+    if (productsList[productsLIndex]) {
+      return productsList[productsLIndex];
+    } else {
+      return null;
+    }
   }
+  public saveProducts(values: any): void {
+    const existingData: IProduct[] = this.storageService.getData('products');
 
-  // public fetchProducts(): void {
-  //   const existingData: IProduct[] = this.storageService.getData('products');
-  //   if (existingData) {
-  //     this.productsSubject$.next(existingData);
-  //   } else {
-  //     this.http.get<IProduct[]>(Routes['allProducts']).subscribe((data) => {
-  //       this.storageService.setData('prosucts', data);
-  //       this.productsSubject$.next(data);
-  //     });
-  //   }
-  // }
+    // Find the item by ID
+    let id = values.id;
+    if (!id) {
+      return;
+    }
+    let itemIndex = existingData.findIndex((item: any) => item.id === id);
+    existingData[itemIndex] = values;
+    this.storageService.setData('products', existingData);
+    this.fetchProducts();
+  }
 
   public fetchProducts(): void {
     const existingData: IProduct[] = this.storageService.getData('products');
